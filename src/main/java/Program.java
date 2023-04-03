@@ -14,7 +14,7 @@ public class Program {
         while (true){
             System.out.println("If you want to add a new coupon type ADD");
             System.out.println("If you want to see all valid coupons type CHECK");
-            input = scanner.next();
+            input = scanner.nextLine().toUpperCase();
             switch (input) {
                 case "EXIT":
                     break label;
@@ -23,6 +23,7 @@ public class Program {
                     String name = scanner.nextLine();
                     System.out.println("For how many seconds is it valid?");
                     int expiryTime = scanner.nextInt();
+                    scanner.nextLine();
                     Coupon coupon = new Coupon(name, new Date(), expiryTime);
                     DAO.addObject(coupon);
                     break;
