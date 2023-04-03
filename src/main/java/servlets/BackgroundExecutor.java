@@ -19,6 +19,7 @@ public class BackgroundExecutor implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         this.scheduler = Executors.newSingleThreadScheduledExecutor();
         this.scheduler.scheduleAtFixedRate(() -> {
+            System.out.println("Running background task: deleting expired coupons at " + new java.util.Date());
             List couponList = DAO.getAllObjects(Coupon.class);
             for (Object o : couponList) {
                 Coupon coupon = (Coupon) o;
@@ -26,6 +27,7 @@ public class BackgroundExecutor implements ServletContextListener {
                     DAO.deleteObject(coupon);
                 }
             }
+            DAO.closeOpenedSession();
         }, 60, 60, TimeUnit.SECONDS);
     }
 
