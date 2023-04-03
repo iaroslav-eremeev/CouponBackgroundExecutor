@@ -3,6 +3,7 @@ import model.Coupon;
 import DAO.DAO;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.List;
 
 public class Program {
     public static void main(String[] args) {
@@ -23,7 +24,11 @@ public class Program {
                 DAO.addObject(coupon);
             }
             if (input.equals("CHECK")){
-
+                List couponList = DAO.getAllObjects(Coupon.class);
+                for (int i = 0; i < couponList.size(); i++) {
+                    System.out.println(couponList.get(i));
+                }
+                DAO.closeOpenedSession();
             }
         }
 
